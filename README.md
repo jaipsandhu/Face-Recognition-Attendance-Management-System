@@ -1,42 +1,35 @@
 # Face-Recognition-Attendance-Management-System
 
-Overview
+## Overview
+This project implements a complete face-recognition-based attendance management system using Python. The system allows administrators to register students, capture facial images, generate facial encodings, and automatically mark attendance in real time through webcam input. The application integrates machine learning-based facial recognition (using the `face_recognition` library built on dlib), OpenCV for camera operations, Tkinter for graphical interfaces, and SQLite3 for local database storage.
 
-This project implements a complete face-recognition-based attendance management system using Python. The system allows administrators to register students, capture facial images, generate facial encodings, and automatically mark attendance in real time through webcam input. The application integrates machine learning-based facial recognition (using the face_recognition library built on dlib), OpenCV for camera operations, Tkinter for graphical interfaces, and SQLite3 for local database storage.
+---
 
-Features
+## Features
+- Student registration with name and unique student ID (UID)
+- Automated face image capture through webcam
+- Facial encoding generation and training
+- Real-time face recognition and attendance marking
+- Attendance stored with date, timestamp, and status
+- GUI for viewing attendance by UID or by date
+- Complete system reset functionality to support testing cycles
 
-Student registration with name and unique student ID (UID)
+---
 
-Automated face image capture through webcam
+## Technologies Used
+- Python  
+- face_recognition (dlib-based face encoding and matching)  
+- OpenCV  
+- Tkinter  
+- SQLite3  
+- NumPy  
+- os and shutil for filesystem operations  
 
-Facial encoding generation and training
+---
 
-Real-time face recognition and attendance marking
+## Project Folder Structure
 
-Attendance stored with date, timestamp, and status
-
-GUI for viewing attendance by UID or by date
-
-Complete system reset functionality to support testing cycles
-
-Technologies Used
-
-Python
-
-face_recognition (dlib-based face encoding and matching)
-
-OpenCV
-
-Tkinter
-
-SQLite3
-
-NumPy
-
-os and shutil for filesystem operations
-
-Project Folder Structure
+```
 FaceRecognition_AttendanceSystem/
 │
 ├── data_acquisition.py       # GUI for adding students (run this first)
@@ -53,53 +46,48 @@ FaceRecognition_AttendanceSystem/
 │         └── img_0.jpg ... img_9.jpg
 │
 └── README.md                 # Project documentation
+```
 
-File Descriptions
-data_acquisition.py
+---
 
-A Tkinter-based GUI that accepts student details (Name and UID), validates input, stores data in the SQLite database, and triggers the face-capture process.
+## File Descriptions
 
-face_capture.py
+### data_acquisition.py
+Tkinter GUI for entering student details (Name and UID). Saves data into the database and initiates face capture.
 
-Captures 10 facial images per registered student using the webcam and stores them in the dataset directory. Each image is encoded and stored in the database.
+### face_capture.py
+Captures 10 images per student using a webcam and stores them inside the dataset folder. Encodes images and stores the encoding in the database.
 
-face_train.py
+### face_train.py
+Reads all stored images, generates facial encodings, and saves them into `encodings.pickle`.
 
-Iterates through the dataset directory, computes facial encodings for all collected images, and saves them into encodings.pickle. This file is required for recognition.
+### mark_attendance.py
+Runs real-time face recognition using a webcam. Marks attendance in the database once per day for each recognized UID.
 
-mark_attendance.py
+### datareport.py
+GUI tool to view attendance by:
+- Student UID
+- Specific date
 
-Performs real-time face detection and recognition using the webcam. When a known face is identified, attendance is marked in the database with date and timestamp. Each student is recorded only once per day.
+### clear_data.py
+Deletes all database tables, stored encodings, and the dataset directory to reset the system.
 
-datareport.py
+---
 
-A Tkinter-based application for viewing attendance. Provides:
+## Execution Order
+1. Run `data_acquisition.py` to register students and capture face images.  
+2. Run `face_train.py` to generate facial encodings.  
+3. Run `mark_attendance.py` to perform real-time attendance marking.  
+4. Run `datareport.py` to view attendance.  
+5. (Optional) Run `clear_data.py` to reset the system.
 
-Attendance lookup by UID
+---
 
-Day-wise attendance sheet
+## How to Run
 
-clear_data.py
-
-Clears the database tables, deletes the encodings file, and removes all dataset images. Useful for resetting the system during testing.
-
-Execution Order
-
-Run data_acquisition.py to register students and capture face images.
-
-Run face_train.py to generate encodings.
-
-Run mark_attendance.py to start real-time attendance marking.
-
-Run datareport.py to view attendance records.
-
-Optionally, use clear_data.py to reset all system data.
-
-How to Run
-
-Install required Python libraries:
-
+### Install Dependencies
+```
 pip install face_recognition opencv-python numpy
+```
 
-
-Run the system modules as per the execution order above.
+### Run the modules according to the execution order above.
