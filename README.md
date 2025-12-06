@@ -87,7 +87,7 @@ Deletes all database tables, stored encodings, and the dataset directory to rese
 
 ### Install Dependencies
 ```
-pip install face_recognition opencv-python numpy
+pip install face_recognition opencv-python numpy tkinter
 ```
 
 ### Run the modules according to the execution order above.
